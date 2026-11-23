@@ -15,11 +15,11 @@ export const site = {
 };
 
 export const release = {
-  version: '0.3.0',
+  version: '0.3.1',
   date: '2026-11',
   sizeLabel: '64 Mo',
   // SHA-256 of the published AlfaErp-Setup.exe, shown on /telecharger so users can check the file.
-  sha256: '57CD6DCFC3D32586149597D8931EA3817643A7170FC4330044668D86B99ACAB3',
+  sha256: 'F96BF0A6F67C33BC444DE328115EF3B91E21672D28A2C322B2656806EF0801B9',
   // Installer is hosted on GitHub Releases, never committed to the repo.
   downloadUrl:
     'https://github.com/Mohamed-Ben-Naima/alfa-erp-website/releases/latest/download/AlfaErp-Setup.exe',

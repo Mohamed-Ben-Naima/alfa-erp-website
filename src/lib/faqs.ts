@@ -14,6 +14,10 @@ export const faqs: { q: string; a: string }[] = [
     a: "Elle contient tout le logiciel. Au premier lancement, choisissez « Mode démo » : une société d'exemple est créée avec clients, fournisseurs, articles, factures et écritures. Un bandeau rappelle que vous êtes en démo. Quand vous activez votre licence, rien n'est perdu.",
   },
   {
+    q: 'Comment passer de la démo à ma propre société ?',
+    a: "Activez votre licence depuis « À propos ». Ensuite, deux choix : créez votre société avec Fichier, puis « Nouveau dossier » (elle démarre vide), ou effacez tout l'essai avec Administration, Maintenance, « Repartir de zéro ». Une sauvegarde vérifiée est faite d'abord, et les données de démonstration sont mises de côté : rien n'est supprimé. En mode démo, la remise à zéro est possible deux fois par poste.",
+  },
+  {
     q: 'Quelle configuration faut-il ?',
     a: "Un PC sous Windows 10 ou Windows 11, 64 bits. Pour plusieurs postes (édition Entreprise), un PC ou un serveur de votre réseau accueille la base de données PostgreSQL ; nous l'installons sur place.",
   },
