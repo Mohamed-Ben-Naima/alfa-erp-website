@@ -1,0 +1,23 @@
+---
+import Icon from './Icon.astro';
+const facts = [
+  { icon: 'pin', text: 'Développé à Mahdia, Tunisie' },
+  { icon: 'offline', text: 'Fonctionne sans internet' },
+  { icon: 'lock', text: 'Vos données restent chez vous' },
+  { icon: 'building', text: 'Plan comptable tunisien' },
+  { icon: 'whatsapp', text: 'Support direct par WhatsApp' },
+];
+---
+<div class="facts" aria-label="En bref">
+  <ul class="wrap">
+    {facts.map((f) => <li><Icon name={f.icon} size={20} />{f.text}</li>)}
+  </ul>
+</div>
+<style>
+  .facts { border-block: 1px solid var(--line); background: var(--surface); }
+  ul { list-style: none; margin: 0 auto; display: grid; grid-template-columns: repeat(5, auto); justify-content: space-between; gap: 12px 20px; padding-block: 18px; }
+  @media (max-width: 1100px) { ul { grid-template-columns: repeat(3, auto); justify-content: start; gap: 12px 32px; } }
+  li { display: inline-flex; align-items: center; gap: 10px; font-size: var(--t-sm); font-weight: 500; color: var(--ink-2); }
+  li :global(svg) { color: var(--violet); }
+  @media (max-width: 640px) { ul { display: grid; grid-template-columns: 1fr 1fr; } li { font-size: var(--t-xs); } }
+</style>

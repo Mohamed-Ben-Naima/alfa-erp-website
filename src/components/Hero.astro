@@ -1,0 +1,174 @@
+---
+import Icon from './Icon.astro';
+import { release, whatsappLink, messages } from '../config';
+import { computeInvoice, formatTnd } from '../lib/invoice';
+
+// The invoice shown in the hero is the demo dossier's own story:
+// Quincaillerie Le Boulon d'Or (Mahdia) bills the Ben Youssef building site.
+const lines = [
+  { code: 'CHARN-100', label: 'Charnière inox 100 mm', quantity: 120, unitPrice: 6.9, vatRate: 19 },
+  { code: 'PERC-750', label: 'Perceuse à percussion 750 W', quantity: 2, unitPrice: 189, vatRate: 19 },
+  { code: 'LIV-CHANT', label: 'Livraison sur chantier', quantity: 1, unitPrice: 25, vatRate: 19 },
+];
+const t = computeInvoice(lines);
+---
+<section class="hero" aria-labelledby="hero-title">
+  <div class="wrap hero-grid">
+    <div class="copy">
+      <p class="made">
+        <Icon name="pin" size={16} />
+        Logiciel tunisien, développé à Mahdia par Alfa Computers &amp; Consulting
+      </p>
+      <h1 id="hero-title">Vos factures, votre stock et votre comptabilité. Enfin au même endroit.</h1>
+      <p class="lead">
+        Alfa ERP gère votre commerce du devis jusqu'à la déclaration de TVA, en dinars à trois
+        décimales, sur le plan comptable tunisien. Il s'installe sur votre PC et fonctionne même
+        sans internet.
+      </p>
+      <div class="ctas">
+        <a class="btn btn-primary btn-lg" href="/telecharger" data-download>
+          <Icon name="download" size={20} />
+          <span>Télécharger gratuitement<span class="btn-meta">Windows 10 et 11, version {release.version}</span></span>
+        </a>
+        <a class="btn btn-wa btn-lg" href={whatsappLink(messages.demo)} target="_blank" rel="noopener">
+          <Icon name="whatsapp" size={20} class="wa-dot" />
+          Demander une démo
+        </a>
+      </div>
+      <ul class="proof">
+        <li><Icon name="check" size={18} />Essai avec une société d'exemple déjà remplie</li>
+        <li><Icon name="check" size={18} />Vos données restent sur votre PC</li>
+        <li><Icon name="check" size={18} />Activez votre licence sans rien ressaisir</li>
+      </ul>
+    </div>
+
+    <div class="visual" aria-label="Illustration : facture d'exemple avec ses totaux">
+      <div class="window app-shot" aria-hidden="true">
+        <img src="/shots/facture.webp" alt="" width="1280" height="800" fetchpriority="high" />
+      </div>
+
+      <article class="invoice">
+        <header class="inv-head">
+          <div>
+            <p class="inv-shop">Quincaillerie Le Boulon d'Or</p>
+            <p class="inv-small">Mahdia · MF 1234567/A/M/000</p>
+          </div>
+          <div class="inv-num">
+            <p class="inv-kind">Facture</p>
+            <p class="figures">FA2026-0009</p>
+          </div>
+        </header>
+        <p class="inv-client">Client : <strong>Chantier Ben Youssef</strong>, Salakta</p>
+
+        <table class="inv-lines">
+          <thead>
+            <tr><th scope="col">Désignation</th><th scope="col" class="num">Qté</th><th scope="col" class="num">P.U. HT</th><th scope="col" class="num">Total HT</th></tr>
+          </thead>
+          <tbody>
+            {lines.map((l) => (
+              <tr>
+                <td><span class="code figures">{l.code}</span>{l.label}</td>
+                <td class="num figures">{l.quantity}</td>
+                <td class="num figures">{formatTnd(l.unitPrice)}</td>
+                <td class="num figures">{formatTnd(l.quantity * l.unitPrice)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        <dl class="inv-totals">
+          <div><dt>Total HT</dt><dd class="figures">{formatTnd(t.net)}</dd></div>
+          <div><dt>TVA 19 %</dt><dd class="figures">{formatTnd(t.vat)}</dd></div>
+          <div><dt>Total TTC</dt><dd class="figures">{formatTnd(t.gross)}</dd></div>
+          <div class="pay"><dt>Net à payer</dt><dd class="figures">{formatTnd(t.gross)} <small>TND</small></dd></div>
+        </dl>
+
+        <p class="stamp" aria-label="Statut : comptabilisée">Comptabilisée<span>journal des ventes</span></p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero { padding-block: clamp(28px, 5vw, 72px) clamp(56px, 7vw, 96px); overflow: hidden; }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(32px, 5vw, 64px); align-items: center; }
+  .copy { display: grid; gap: 22px; }
+  .made { display: inline-flex; align-items: center; gap: 8px; font-size: var(--t-sm); color: var(--muted); }
+  .made :global(svg) { color: var(--magenta); }
+  h1 {
+    font-size: var(--t-2xl); line-height: 1.04; letter-spacing: -0.022em; font-weight: 720;
+    font-variation-settings: 'opsz' 96;
+  }
+  .lead { font-size: var(--t-lg); line-height: 1.55; color: var(--ink-2); max-width: 46ch; }
+  .ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+  .ctas .btn-primary { text-align: left; }
+  .proof { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 8px; font-size: var(--t-sm); color: var(--ink-2); }
+  .proof li { display: flex; gap: 10px; align-items: center; }
+  .proof :global(svg) { color: var(--ok); flex: none; }
+
+  /* Visual: the app behind, the printed invoice in front */
+  .visual { position: relative; min-height: 520px; }
+  .app-shot { position: absolute; top: 0; left: 8%; width: 108%; transform: rotate(0.6deg); opacity: .96; }
+  .app-shot img { width: 100%; }
+
+  .invoice {
+    position: relative; z-index: 2; margin-top: 150px; width: min(440px, 92%);
+    background: #fff; border-radius: 4px; padding: 22px 22px 18px;
+    box-shadow: 0 2px 0 var(--line), 0 30px 60px -18px rgba(31, 23, 41, .38);
+    font-size: 12.5px; color: var(--ink);
+    border-top: 5px solid; border-image: var(--brand-gradient) 1;
+  }
+  .inv-head { display: flex; justify-content: space-between; gap: 12px; }
+  .inv-shop { font: 700 15px/1.2 var(--display); }
+  .inv-small { color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .inv-num { text-align: right; }
+  .inv-kind { font: 700 17px/1 var(--display); color: var(--violet-deep); }
+  .inv-num .figures { font-size: 12px; margin-top: 4px; }
+  .inv-client { margin: 14px 0 10px; color: var(--ink-2); }
+  .inv-lines { width: 100%; border-collapse: collapse; }
+  .inv-lines th { text-align: left; font-weight: 600; font-size: 11px; color: var(--muted); padding: 6px 4px; border-bottom: 1px solid var(--line-strong); }
+  .inv-lines td { padding: 7px 4px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .inv-lines .num { text-align: right; white-space: nowrap; }
+  .code { display: block; font-size: 10.5px; color: var(--muted); }
+  .inv-totals { margin: 12px 0 0 auto; width: min(260px, 100%); display: grid; gap: 3px; }
+  .inv-totals div { display: flex; justify-content: space-between; gap: 12px; }
+  .inv-totals dt { color: var(--ink-2); }
+  .inv-totals dd { margin: 0; }
+  .inv-totals .rs dd { color: var(--credit); }
+  .inv-totals .pay { margin-top: 6px; padding-top: 8px; border-top: 2px solid var(--ink); font-weight: 600; font-size: 14px; }
+  .inv-totals small { font-size: 10px; color: var(--muted); }
+
+  .stamp {
+    position: absolute; left: 18px; bottom: 26px; transform: rotate(-9deg);
+    border: 2.5px solid var(--violet-deep); color: var(--violet-deep); border-radius: 8px;
+    padding: 6px 12px 5px; font: 700 15px/1 var(--display); letter-spacing: .02em; text-align: center;
+    background: rgba(255, 255, 255, .7); mix-blend-mode: multiply;
+  }
+  .stamp span { display: block; font: 500 10px/1.3 var(--body); margin-top: 3px; }
+
+  /* The one orchestrated moment: lines arrive, totals settle, the stamp lands. */
+  @media (prefers-reduced-motion: no-preference) {
+    .inv-lines tbody tr { animation: line-in .45s calc(.35s + var(--i, 0) * .22s) both cubic-bezier(.2,.7,.2,1); }
+    .inv-lines tbody tr:nth-child(2) { --i: 1; }
+    .inv-lines tbody tr:nth-child(3) { --i: 2; }
+    .inv-totals { animation: fade .5s 1.2s both; }
+    .stamp { animation: stamp .42s 1.85s both cubic-bezier(.3, 1.6, .5, 1); }
+    .app-shot { animation: fade .8s .05s both; }
+  }
+  @keyframes line-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes stamp { from { opacity: 0; transform: rotate(-9deg) scale(1.9); } to { opacity: 1; transform: rotate(-9deg) scale(1); } }
+
+  @media (max-width: 980px) {
+    .hero-grid { grid-template-columns: minmax(0, 1fr); }
+    .visual { min-height: 0; padding-bottom: 8px; }
+    .app-shot { width: 100%; left: 0; transform: none; position: relative; }
+    .invoice { margin: -120px 0 0 auto; width: min(440px, 94%); }
+  }
+  @media (max-width: 520px) {
+    .invoice { margin-top: 8px; width: 100%; padding: 18px 14px 16px; }
+    .app-shot { display: none; }
+    .stamp { position: relative; left: auto; bottom: auto; display: inline-block; margin-top: 14px; }
+    .ctas .btn { width: 100%; justify-content: flex-start; }
+  }
+</style>

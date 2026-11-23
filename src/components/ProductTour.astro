@@ -1,0 +1,176 @@
+---
+// Real screens from the demo dossier (Quincaillerie Le Boulon d'Or, invented data).
+const tabs = [
+  {
+    id: 'ventes',
+    label: 'Ventes',
+    title: 'Du devis à la facture, tapé une seule fois',
+    text: "Un artisan demande un prix : vous faites le devis. Accepté, il devient bon de commande, puis bon de livraison, puis facture, sans rien ressaisir.",
+    points: [
+      'Numérotation des factures continue, sans trou',
+      'Échéances et paiement en plusieurs fois',
+      'Avoirs liés à la facture d\'origine',
+    ],
+    img: 'facture',
+    alt: 'Écran Factures clients d\'Alfa ERP avec la facture FA2026-0009 ouverte',
+  },
+  {
+    id: 'stock',
+    label: 'Stock',
+    title: 'Savoir ce que vous avez, où, et pour combien',
+    text: "Chaque livraison sort la marchandise, chaque facture fournisseur la fait entrer. L'état de stock donne quantités et valeur au coût moyen pondéré, par dépôt.",
+    points: [
+      'Plusieurs dépôts et transferts entre dépôts',
+      'Numéros de série pour le matériel',
+      'Inventaire avec écarts calculés',
+    ],
+    img: 'etat-stock',
+    alt: 'Écran État de stock d\'Alfa ERP avec quantités, coût moyen et valeur par article',
+  },
+  {
+    id: 'encaissements',
+    label: 'Encaissements',
+    title: 'Qui vous doit quoi, et depuis quand',
+    text: "La balance âgée range vos clients par retard : moins de 30 jours, 60, 90 et au-delà. Vous voyez d'un coup d'œil qui relancer ce matin.",
+    points: [
+      'Espèces, chèques, virements, traites',
+      'Remises de chèques en banque',
+      'Rapprochement bancaire et lettrage',
+    ],
+    img: 'balance-agee',
+    alt: 'Écran Balance âgée d\'Alfa ERP classant les clients par ancienneté de la dette',
+  },
+  {
+    id: 'comptabilite',
+    label: 'Comptabilité',
+    title: 'Votre comptable trouve tout prêt',
+    text: "Les ventes, achats et règlements passent seuls au journal, sur le plan comptable tunisien. Balance, grand-livre, livre-journal et déclaration de TVA sortent en PDF.",
+    points: [
+      'Plan comptable tunisien de 575 comptes',
+      'TVA sur les débits ou sur les encaissements',
+      'Modèles d\'impression à vos couleurs',
+    ],
+    img: 'declaration-tva',
+    alt: 'Écran Déclaration de TVA d\'Alfa ERP : TVA collectée, déductible et crédit à reporter',
+  },
+  {
+    id: 'securite',
+    label: 'Équipe et sécurité',
+    title: 'Chacun son compte, chacun son métier',
+    text: "Le caissier encaisse, le magasinier gère le stock, le comptable valide. Vous décidez qui voit et qui modifie quoi, module par module.",
+    points: [
+      'Neuf rôles prêts à l\'emploi, modifiables',
+      'Sauvegardes signées et vérifiées',
+      'Assistant IA en option : il propose, vous validez',
+    ],
+    img: 'autorisations',
+    alt: 'Écran Autorisations d\'Alfa ERP avec les droits par rôle et par module',
+  },
+];
+---
+<section class="section tour" aria-labelledby="tour-title">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="rule" aria-hidden="true"></div>
+      <h2 id="tour-title">Tout votre commerce, dans un seul logiciel</h2>
+      <p>De vrais écrans d'Alfa ERP, avec la société d'exemple que vous retrouverez en mode démo.</p>
+    </div>
+
+    <div class="tabs" data-tabs>
+      <div class="tablist" role="tablist" aria-label="Modules d'Alfa ERP">
+        {tabs.map((t, i) => (
+          <button
+            role="tab"
+            type="button"
+            id={`tab-${t.id}`}
+            aria-controls={`panel-${t.id}`}
+            aria-selected={i === 0 ? 'true' : 'false'}
+            tabindex={i === 0 ? 0 : -1}
+          >{t.label}</button>
+        ))}
+      </div>
+
+      {tabs.map((t, i) => (
+        <div class="panel" role="tabpanel" id={`panel-${t.id}`} aria-labelledby={`tab-${t.id}`} hidden={i !== 0}>
+          <div class="panel-copy">
+            <h3>{t.title}</h3>
+            <p>{t.text}</p>
+            <ul>{t.points.map((p) => <li>{p}</li>)}</ul>
+          </div>
+          <figure class="window">
+            <a href={`/shots/${t.img}.webp`} data-zoom data-caption={t.title} aria-label={`Agrandir : ${t.alt}`}>
+              <img
+                src={`/shots/${t.img}.webp`}
+                srcset={`/shots/${t.img}-sm.webp 640w, /shots/${t.img}.webp 1280w`}
+                sizes="(max-width: 980px) 100vw, 720px"
+                width="1280"
+                height="800"
+                alt={t.alt}
+                loading="lazy"
+                decoding="async"
+              />
+            </a>
+          </figure>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-tabs]').forEach((root) => {
+    const tabs = [...root.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+    const select = (tab: HTMLButtonElement, focus = false) => {
+      tabs.forEach((t) => {
+        const on = t === tab;
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+        const panel = document.getElementById(t.getAttribute('aria-controls')!);
+        if (panel) panel.hidden = !on;
+      });
+      if (focus) tab.focus();
+    };
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => select(tab));
+      tab.addEventListener('keydown', (e) => {
+        const k = e.key;
+        let n = -1;
+        if (k === 'ArrowRight') n = (i + 1) % tabs.length;
+        else if (k === 'ArrowLeft') n = (i - 1 + tabs.length) % tabs.length;
+        else if (k === 'Home') n = 0;
+        else if (k === 'End') n = tabs.length - 1;
+        if (n >= 0) { e.preventDefault(); select(tabs[n], true); }
+      });
+    });
+  });
+</script>
+
+<style>
+  .tour { background: var(--surface); border-block: 1px solid var(--line); }
+  .tablist {
+    display: flex; gap: 4px; padding: 4px; background: var(--paper); border: 1px solid var(--line);
+    border-radius: 12px; width: fit-content; max-width: 100%; overflow-x: auto; scrollbar-width: none;
+  }
+  .tablist::-webkit-scrollbar { display: none; }
+  [role='tab'] {
+    flex: none; border: 0; background: none; cursor: pointer; padding: 10px 16px; border-radius: 9px;
+    font: 500 var(--t-sm)/1.2 var(--body); color: var(--ink-2); white-space: nowrap;
+  }
+  [role='tab']:hover { color: var(--ink); background: var(--tint); }
+  [role='tab'][aria-selected='true'] { background: var(--surface); color: var(--violet-deep); font-weight: 600; box-shadow: 0 1px 3px rgba(31,23,41,.12); }
+
+  .panel { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.9fr); gap: clamp(24px, 4vw, 48px); align-items: center; margin-top: 28px; }
+  .panel[hidden] { display: none; }
+  .panel-copy { display: grid; gap: 14px; }
+  .panel-copy p { color: var(--ink-2); }
+  .panel-copy ul { margin: 4px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; font-size: var(--t-sm); }
+  .panel-copy li { padding-left: 22px; position: relative; }
+  .panel-copy li::before { content: ''; position: absolute; left: 0; top: .55em; width: 10px; height: 10px; border-radius: 3px; background: var(--brand-gradient); }
+  figure { margin: 0; }
+  figure a { display: block; cursor: zoom-in; }
+
+  @media (max-width: 980px) {
+    .panel { grid-template-columns: minmax(0, 1fr); }
+    .panel figure { order: -1; }
+  }
+</style>

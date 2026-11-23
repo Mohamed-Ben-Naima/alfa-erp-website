@@ -1,0 +1,88 @@
+---
+import Icon from './Icon.astro';
+import { release, contact, site, whatsappLink, messages } from '../config';
+const year = new Date().getFullYear();
+---
+<section class="final" aria-labelledby="final-title">
+  <div class="wrap final-inner">
+    <h2 id="final-title">Votre prochaine facture peut sortir d'Alfa ERP.</h2>
+    <p>Installez la version d'essai ce soir. Demain matin, vous savez si c'est pour vous.</p>
+    <div class="ctas">
+      <a class="btn btn-primary btn-lg" href="/telecharger" data-download>
+        <Icon name="download" size={20} />
+        <span>Télécharger gratuitement<span class="btn-meta">{release.requirements}, version {release.version}</span></span>
+      </a>
+      <a class="btn btn-wa btn-lg" href={whatsappLink(messages.demo)} target="_blank" rel="noopener">
+        <Icon name="whatsapp" size={20} class="wa-dot" />
+        Demander une démo
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap foot-grid">
+    <div class="brand">
+      <img src="/brand/alfa-computers-logo.png" alt="Alfa Computers" width="400" height="107" loading="lazy" />
+      <p>Alfa ERP est conçu et développé à Mahdia, en Tunisie, par {site.publisher}.</p>
+    </div>
+    <div>
+      <h2 class="h">Contact</h2>
+      <ul>
+        <li><a href={whatsappLink(messages.general)} target="_blank" rel="noopener"><Icon name="whatsapp" size={18} />WhatsApp</a></li>
+        <li><a href={`tel:${contact.phoneHref}`}><Icon name="phone" size={18} />{contact.phoneDisplay}</a></li>
+        {contact.email && <li><a href={`mailto:${contact.email}`}><Icon name="mail" size={18} />{contact.email}</a></li>}
+        <li class="plain"><Icon name="pin" size={18} />{site.city}</li>
+      </ul>
+      {contact.hours && <p class="hours">{contact.hours}</p>}
+    </div>
+    <div>
+      <h2 class="h">Alfa ERP</h2>
+      <ul>
+        <li><a href="/telecharger">Télécharger</a></li>
+        <li><a href="/logiciel-facturation-tunisie">Logiciel de facturation</a></li>
+        <li><a href="/logiciel-gestion-stock-tunisie">Gestion de stock</a></li>
+        <li><a href="/logiciel-comptabilite-tunisie">Comptabilité</a></li>
+        <li><a href="/outils/calcul-retenue-a-la-source">Calcul de la retenue à la source</a></li>
+        <li><a href="/#tarifs">Tarifs</a></li>
+        <li><a href="/#equipe">L'équipe</a></li>
+        <li><a href="/#essayer">Essayer en ligne</a></li>
+        <li><a href="/mentions-legales">Mentions légales</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap legal">
+    <p>© {year} {site.publisher}. Version {release.version}. Les sociétés et chiffres montrés sur ce site sont des données d'exemple.</p>
+  </div>
+</footer>
+
+<style>
+  .final { background: var(--ink); color: #f3eff8; padding-block: clamp(64px, 8vw, 104px); position: relative; overflow: hidden; }
+  .final::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 5px; background: var(--brand-gradient); }
+  .final-inner { display: grid; gap: 18px; justify-items: start; }
+  .final h2 { color: #fff; font-size: var(--t-2xl); line-height: 1.05; letter-spacing: -0.022em; max-width: 18ch; }
+  .final p { color: #d8d0e3; font-size: var(--t-lg); }
+  .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+  .final .btn-primary { background: #fff; color: var(--violet-deep); text-align: left; }
+  .final .btn-primary:hover { background: var(--tint); }
+  .final .btn-wa { background: transparent; color: #fff; border-color: rgba(255,255,255,.35); }
+  .final .btn-wa:hover { border-color: #5fd38f; color: #fff; }
+  .final .wa-dot { color: #5fd38f; }
+
+  .footer { background: var(--surface); border-top: 1px solid var(--line); padding-block: 48px 24px; font-size: var(--t-sm); }
+  .foot-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr); gap: 32px; }
+  .brand { display: grid; gap: 14px; align-content: start; }
+  .brand img { width: 180px; height: auto; }
+  .brand p { color: var(--muted); max-width: 36ch; }
+  .h { font: 650 var(--t-sm)/1.2 var(--display); margin-bottom: 12px; }
+  ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  li a, li.plain { display: inline-flex; gap: 8px; align-items: center; color: var(--ink-2); text-decoration: none; }
+  li a:hover { color: var(--violet-deep); text-decoration: underline; text-underline-offset: 3px; }
+  li :global(svg) { color: var(--muted); }
+  .hours { margin-top: 10px; color: var(--muted); font-size: var(--t-xs); }
+  .legal { margin-top: 36px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: var(--t-xs); }
+  @media (max-width: 760px) {
+    .foot-grid { grid-template-columns: minmax(0, 1fr); }
+    .footer { padding-bottom: 96px; }
+  }
+</style>

@@ -1,0 +1,41 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { site, contact } from '../config';
+---
+<Base title="Mentions légales | Alfa ERP" description="Mentions légales du site Alfa ERP." path="/mentions-legales" noindex>
+  <Nav />
+  <main id="contenu" class="section">
+    <div class="wrap legal">
+      <h1>Mentions légales</h1>
+      <h2>Éditeur</h2>
+      <p>{site.publisher}, {site.city}.<br />Contact : {contact.email && <><a href={`mailto:${contact.email}`}>{contact.email}</a>, </>}{contact.phoneDisplay} (téléphone et WhatsApp).</p>
+      <!-- TODO: add legal form, registre de commerce (RNE) number and matricule fiscal -->
+      <h2>Hébergement</h2>
+      <p>Site : Render Services, Inc., San Francisco, États-Unis (render.com). Fichier d'installation : GitHub, Inc. (github.com), via les « Releases » du dépôt public du site.</p>
+      <h2>Données personnelles</h2>
+      <p>
+        Ce site ne dépose aucun cookie, n'utilise aucun outil de mesure d'audience et ne collecte
+        aucune donnée par formulaire. Les polices sont hébergées sur le site lui-même.
+        Lorsque vous nous écrivez sur WhatsApp, par téléphone ou par e-mail, vos coordonnées servent
+        uniquement à vous répondre.
+      </p>
+      <h2>Données d'exemple</h2>
+      <p>
+        Les sociétés, personnes et montants montrés sur ce site et dans le mode démo du logiciel
+        (dont la « Quincaillerie Le Boulon d'Or ») sont inventés.
+      </p>
+      <h2>Marques</h2>
+      <p>Windows est une marque de Microsoft Corporation. El Fatoora est un service de Tunisie TradeNet (TTN).</p>
+    </div>
+  </main>
+  <Footer />
+</Base>
+
+<style>
+  .legal { max-width: 760px; display: grid; gap: 14px; }
+  h1 { font-size: var(--t-xl); margin-bottom: 10px; }
+  h2 { font-size: var(--t-lg); margin-top: 16px; }
+  p { color: var(--ink-2); }
+</style>

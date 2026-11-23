@@ -1,0 +1,93 @@
+---
+import Icon from './Icon.astro';
+import { release, whatsappLink, messages } from '../config';
+const links = [
+  { href: '/#fonctionnalites', label: 'Fonctionnalités' },
+  { href: '/#essayer', label: 'Essayer' },
+  { href: '/#tarifs', label: 'Tarifs' },
+  { href: '/#equipe', label: 'Équipe' },
+  { href: '/#questions', label: 'Questions' },
+];
+---
+<header class="nav" data-nav>
+  <div class="wrap nav-inner">
+    <a class="logo" href="/" aria-label="Alfa ERP, accueil">
+      <img src="/brand/alfa-mark.png" alt="" width="34" height="31" />
+      <span>Alfa ERP</span>
+    </a>
+    <nav aria-label="Navigation principale">
+      <ul>
+        {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      </ul>
+    </nav>
+    <a class="btn btn-primary nav-cta" href="/telecharger" data-download>
+      <Icon name="download" size={18} />
+      Télécharger
+    </a>
+  </div>
+</header>
+
+<!-- Mobile: the two actions stay within thumb reach -->
+<div class="mobile-bar" aria-label="Actions rapides">
+  <a class="btn btn-primary" href="/telecharger" data-download>
+    <Icon name="windows" size={18} />
+    Télécharger
+  </a>
+  <a class="btn btn-wa" href={whatsappLink(messages.general)} target="_blank" rel="noopener">
+    <Icon name="whatsapp" size={18} class="wa-dot" />
+    WhatsApp
+  </a>
+</div>
+
+<style>
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(247, 246, 250, 0.86);
+    backdrop-filter: saturate(1.4) blur(12px);
+    -webkit-backdrop-filter: saturate(1.4) blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: border-color .2s;
+  }
+  .nav.scrolled { border-bottom-color: var(--line); }
+  .nav-inner { display: flex; align-items: center; gap: 24px; height: 68px; }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font: 700 1.2rem/1 var(--display); letter-spacing: -0.02em; }
+  .logo img { width: 34px; height: auto; }
+  nav { margin-left: auto; }
+  ul { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; }
+  nav a {
+    display: block; padding: 8px 12px; border-radius: 8px; text-decoration: none;
+    font-size: var(--t-sm); color: var(--ink-2);
+  }
+  nav a:hover { background: var(--tint); color: var(--ink); }
+  .nav-cta { min-height: 42px; padding: 9px 16px; }
+
+  .mobile-bar { display: none; }
+
+  @media (max-width: 900px) {
+    nav { display: none; }
+    .nav-cta { margin-left: auto; }
+  }
+  @media (max-width: 640px) {
+    .nav-cta { display: none; }
+    .mobile-bar {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+      position: fixed; z-index: 60; left: 0; right: 0; bottom: 0;
+      padding: 10px var(--gutter) max(10px, env(safe-area-inset-bottom));
+      background: rgba(255, 255, 255, 0.96); border-top: 1px solid var(--line);
+      transform: translateY(110%); transition: transform .25s ease;
+    }
+    :global(body.show-mobile-bar) .mobile-bar { transform: none; }
+    .mobile-bar .btn { min-height: 48px; padding: 10px 12px; }
+  }
+</style>
+
+<script>
+  const nav = document.querySelector('[data-nav]');
+  const onScroll = () => {
+    const y = window.scrollY;
+    nav?.classList.toggle('scrolled', y > 8);
+    document.body.classList.toggle('show-mobile-bar', y > 520);
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+</script>

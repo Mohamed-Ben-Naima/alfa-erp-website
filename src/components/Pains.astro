@@ -1,0 +1,82 @@
+---
+// Pains in the customer's own words (left), the Alfa fix (right).
+// Set like a ledger: what costs you today on one side, what you get back on the other.
+const rows = [
+  {
+    pain: 'Je tape la même chose trois fois : le devis, le bon de livraison, puis la facture.',
+    fix: "Le devis devient bon de commande, puis bon de livraison, puis facture. Un clic à chaque étape, rien à retaper.",
+  },
+  {
+    pain: "Je ne sais jamais exactement ce qu'il me reste en stock.",
+    fix: "Chaque livraison sort la marchandise du dépôt. Quantités et valeur au coût moyen, par dépôt, à tout moment.",
+  },
+  {
+    pain: 'Une erreur de TVA, et je la découvre au contrôle.',
+    fix: 'TVA à 19, 13 ou 7 % calculée ligne par ligne, au millime, et ventilée par taux sur chaque facture. La déclaration de TVA se prépare toute seule.',
+  },
+  {
+    pain: 'Les clients paient en retard et je perds le fil des chèques.',
+    fix: 'Balance âgée, relevé client, échéances et remises de chèques en banque : vous savez qui vous doit quoi, et depuis quand.',
+  },
+  {
+    pain: 'Mon comptable me réclame les papiers à chaque fin de mois.',
+    fix: "Chaque facture validée passe toute seule au journal. Grand-livre, balance et déclaration de TVA sont prêts quand il arrive.",
+  },
+  {
+    pain: "Internet coupe, et le logiciel en ligne s'arrête avec lui.",
+    fix: "Alfa ERP tourne sur votre PC ou votre serveur. Pas d'abonnement cloud, pas de coupure, vos données restent chez vous.",
+  },
+  {
+    pain: 'Si le PC tombe en panne, je perds tout.',
+    fix: "Sauvegarde en un clic, signée puis vérifiée : Alfa ERP relit la copie pour s'assurer qu'elle est complète.",
+  },
+];
+---
+<section class="section pains" id="fonctionnalites" aria-labelledby="pains-title">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="rule" aria-hidden="true"></div>
+      <h2 id="pains-title">Ce que vous perdez aujourd'hui, ce qu'Alfa ERP vous rend</h2>
+      <p>Sept situations courantes dans un commerce ou une PME. Voici ce qu'Alfa ERP fait pour chacune.</p>
+    </div>
+
+    <div class="ledger" role="table" aria-label="Problèmes courants et solutions Alfa ERP">
+      <div class="ledger-head" role="row">
+        <span role="columnheader" class="col-before">Aujourd'hui</span>
+        <span role="columnheader" class="col-after">Avec Alfa ERP</span>
+      </div>
+      {rows.map((r) => (
+        <div class="ledger-row" role="row">
+          <p role="cell" class="before">« {r.pain} »</p>
+          <p role="cell" class="after">{r.fix}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .pains { background: var(--surface); border-block: 1px solid var(--line); }
+  .ledger { border-top: 2px solid var(--ink); }
+  .ledger-head, .ledger-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); }
+  .ledger-head { border-bottom: 1px solid var(--ink); }
+  .ledger-head span { padding: 12px 20px; font: 650 var(--t-sm)/1.2 var(--display); }
+  .col-before { color: var(--credit); }
+  .col-after { color: var(--violet-deep); border-left: 1px solid var(--ink); }
+  .ledger-row { border-bottom: 1px solid var(--line); }
+  .ledger-row p { padding: 20px; }
+  .before {
+    font-family: var(--display); font-size: var(--t-lg); line-height: 1.35; font-weight: 500;
+    color: var(--ink); letter-spacing: -0.01em;
+  }
+  .after { border-left: 1px solid var(--ink); color: var(--ink-2); align-self: stretch; }
+  .ledger-row:hover .after { background: var(--tint); }
+
+  @media (max-width: 760px) {
+    .ledger-head { display: none; }
+    .ledger-row { grid-template-columns: minmax(0, 1fr); padding-block: 6px; }
+    .ledger-row p { padding: 12px 0 4px; }
+    .after { border-left: 3px solid var(--violet); padding: 6px 0 14px 14px !important; margin-bottom: 8px; }
+    .ledger-row:hover .after { background: none; }
+  }
+</style>

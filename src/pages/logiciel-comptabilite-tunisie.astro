@@ -1,0 +1,34 @@
+---
+import FeaturePage from '../layouts/FeaturePage.astro';
+---
+<FeaturePage
+  path="/logiciel-comptabilite-tunisie"
+  title="Logiciel de comptabilité Tunisie, plan tunisien | Alfa ERP"
+  description="Plan comptable tunisien, journaux, lettrage, rapprochement bancaire, balance, grand-livre et déclaration de TVA. Pour les PME et leurs comptables."
+  crumb="Comptabilité"
+  h1="Logiciel de comptabilité pour les PME tunisiennes"
+  lead="La comptabilité est le cœur d'Alfa ERP. Ventes, achats et règlements y arrivent tout seuls, sur le plan comptable tunisien. Votre comptable trouve les journaux, la balance et la déclaration de TVA prêts."
+  shots={[
+    { img: 'declaration-tva', alt: 'Déclaration de TVA dans Alfa ERP', caption: 'Déclaration de TVA : TVA collectée, déductible et crédit à reporter.' },
+    { img: 'lettrage', alt: 'Écran de lettrage dans Alfa ERP', caption: 'Lettrage : rapprocher factures et règlements, même partiellement.' },
+  ]}
+  blocks={[
+    { title: 'Plan comptable tunisien', text: 'Un dossier neuf démarre avec le plan comptable tunisien (575 comptes), les journaux et les taux de TVA. Tout reste paramétrable.' },
+    { title: 'Saisie et contrôles', text: "Une écriture déséquilibrée ne peut pas être validée. Les erreurs de saisie s'affichent toutes à la fois, ligne par ligne." },
+    { title: 'TVA sur les débits ou les encaissements', text: 'Pour la TVA sur encaissements, la taxe devient exigible au règlement, à la date du règlement, au prorata en cas de paiement partiel.' },
+    { title: 'Lettrage et rapprochement bancaire', text: 'Rapprochez factures et règlements, importez un relevé bancaire et pointez-le contre vos écritures.' },
+    { title: 'États prêts à imprimer', text: 'Balance générale, grand-livre, livre-journal, journal des ventes, relevé client, balance âgée et déclaration de TVA, en PDF.' },
+    { title: 'Assistant IA en option', text: "Branchez votre propre assistant IA en lecture seule : il analyse vos chiffres et propose des écritures, qu'un comptable valide ou refuse." },
+  ]}
+  faqs={[
+    { q: 'Mon expert-comptable peut-il travailler dessus ?', a: 'Oui. Créez-lui un compte avec le rôle Chef comptable ou Comptable, puis choisissez, module par module, ce qu\'il peut consulter ou modifier.' },
+    { q: 'Les taux de TVA sont-ils à jour ?', a: "Alfa ERP est livré avec la TVA à 19, 13 et 7 % et le taux de retenue à la source de 1,5 %. Ces paramètres se modifient dans le logiciel ; faites valider vos réglages par votre expert-comptable." },
+    { q: 'Puis-je reprendre ma comptabilité existante ?', a: 'Envoyez-nous un export de votre logiciel actuel sur WhatsApp : nous regardons avec vous comment reprendre le plan comptable, les tiers et les soldes.' },
+  ]}
+  related={[
+    { href: '/logiciel-facturation-tunisie', label: 'Facturation' },
+    { href: '/logiciel-gestion-stock-tunisie', label: 'Gestion de stock' },
+    { href: '/outils/calcul-retenue-a-la-source', label: 'Calculer une retenue à la source' },
+    { href: '/#tarifs', label: 'Tarifs' },
+  ]}
+/>

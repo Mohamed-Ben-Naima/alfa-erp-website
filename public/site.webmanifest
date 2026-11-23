@@ -1,0 +1,13 @@
+{
+  "name": "Alfa ERP",
+  "short_name": "Alfa ERP",
+  "lang": "fr-TN",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#f7f6fa",
+  "theme_color": "#7a2bb5",
+  "icons": [
+    { "src": "/brand/icon-180.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "/brand/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

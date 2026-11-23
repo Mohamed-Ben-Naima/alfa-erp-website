@@ -1,0 +1,137 @@
+/* Alfa ERP website — tokens from the desktop app's Themes/Brand.xaml
+   Principle: the page speaks in the objects of the trade (invoice, ledger, stamp).
+   One bold moment (the hero invoice); everything else quiet. */
+
+:root {
+  /* brand */
+  --violet: #9b3fd9;
+  --violet-deep: #7a2bb5;
+  --magenta: #d9509b;
+  --amber: #ffa93b;
+  --amber-ink: #8a4b00;
+  --brand-gradient: linear-gradient(90deg, #9b3fd9, #d9509b 55%, #ffa93b);
+
+  /* surfaces & ink */
+  --paper: #f7f6fa;
+  --surface: #ffffff;
+  --ink: #1f1729;
+  --ink-2: #3b3247;
+  --muted: #625a70;
+  --line: #e4dfec;
+  --line-strong: #cfc7db;
+  --tint: #f1eaf9;
+
+  /* app accents (ledger) */
+  --app-blue: #2563eb;
+  --debit: #1f5fa9;
+  --credit: #a9451f;
+  --ok: #1b8a4b;
+  --bad: #c4314b;
+  --wa: #128c4a;
+
+  /* type */
+  --display: 'Bricolage Grotesque Variable', 'Segoe UI', system-ui, sans-serif;
+  --body: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;
+  --figures: 'IBM Plex Mono', Consolas, ui-monospace, monospace;
+
+  /* scale (≈ 1.25) */
+  --t-xs: 0.8125rem;
+  --t-sm: 0.9375rem;
+  --t-md: 1.0625rem;
+  --t-lg: 1.3125rem;
+  --t-xl: clamp(1.6rem, 1.2rem + 1.6vw, 2.25rem);
+  --t-2xl: clamp(2.1rem, 1.3rem + 3.4vw, 3.75rem);
+
+  --radius-s: 6px;
+  --radius-m: 12px;
+  --radius-l: 20px;
+  --wrap: 1180px;
+  --gutter: max(16px, env(safe-area-inset-left, 0px));
+  --shadow-window: 0 1px 0 rgba(31, 23, 41, 0.04), 0 24px 60px -20px rgba(74, 32, 110, 0.35);
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 84px; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: var(--t-md);
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img, video { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+p { margin: 0; }
+h1, h2, h3, h4 { margin: 0; font-family: var(--display); color: var(--ink); text-wrap: balance; }
+h2 { font-size: var(--t-xl); line-height: 1.12; font-weight: 700; letter-spacing: -0.02em; }
+h3 { font-size: var(--t-lg); line-height: 1.25; font-weight: 650; letter-spacing: -0.01em; }
+
+.wrap { width: 100%; max-width: var(--wrap); margin-inline: auto; padding-inline: var(--gutter); }
+
+.section { padding-block: clamp(64px, 8vw, 112px); }
+.section-head { display: grid; gap: 14px; max-width: 62ch; margin-bottom: clamp(32px, 4vw, 48px); }
+.section-head p { color: var(--muted); font-size: var(--t-md); }
+.rule { width: 64px; height: 4px; border-radius: 2px; background: var(--brand-gradient); }
+
+.figures { font-family: var(--figures); font-variant-numeric: tabular-nums; }
+
+/* Buttons — one primary action (download), one secondary (WhatsApp) */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 48px; padding: 12px 22px; border-radius: 10px;
+  font: 600 var(--t-sm)/1.2 var(--body); text-decoration: none; cursor: pointer;
+  border: 1px solid transparent; transition: background-color .15s, border-color .15s, transform .15s;
+}
+.btn svg { flex: none; }
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--violet-deep); color: #fff; }
+.btn-primary:hover { background: #6a2299; }
+.btn-wa { background: var(--surface); color: var(--ink); border-color: var(--line-strong); }
+.btn-wa:hover { border-color: var(--wa); color: var(--wa); }
+.btn-wa .wa-dot { color: var(--wa); }
+.btn-ghost { background: transparent; color: var(--ink); border-color: var(--line-strong); }
+.btn-ghost:hover { border-color: var(--violet); color: var(--violet-deep); }
+.btn-lg { min-height: 56px; padding: 14px 26px; font-size: var(--t-md); }
+.btn-meta { display: block; font-weight: 400; font-size: var(--t-xs); opacity: .82; }
+
+:focus-visible { outline: 3px solid var(--violet); outline-offset: 3px; border-radius: 4px; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+.skip {
+  position: absolute; left: 12px; top: -60px; z-index: 100; background: var(--ink); color: #fff;
+  padding: 10px 14px; border-radius: 8px; text-decoration: none;
+}
+.skip:focus { top: 12px; }
+
+/* App window frame (shared look of the desktop app) */
+.window {
+  background: var(--surface); border: 1px solid var(--line-strong); border-radius: var(--radius-m);
+  overflow: hidden; box-shadow: var(--shadow-window);
+}
+.window-bar {
+  display: flex; align-items: center; gap: 10px; height: 34px; padding: 0 12px;
+  border-bottom: 2px solid transparent;
+  border-image: var(--brand-gradient) 1;
+  background: linear-gradient(180deg, #fff, #fbf7fd);
+  font-size: 12px; color: var(--ink-2);
+}
+.window-bar img { width: 16px; height: auto; }
+.window-bar .ctrl { margin-left: auto; display: flex; gap: 14px; color: var(--muted); font-size: 11px; letter-spacing: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}

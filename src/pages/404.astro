@@ -1,0 +1,28 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Icon from '../components/Icon.astro';
+---
+<Base title="Page introuvable | Alfa ERP" description="Cette page n'existe pas ou a été déplacée." path="/404" noindex>
+  <Nav />
+  <main id="contenu" class="section">
+    <div class="wrap nf">
+      <p class="code figures">404</p>
+      <h1>Cette page n'existe pas</h1>
+      <p>Le lien est peut-être ancien. Voici où aller :</p>
+      <div class="ctas">
+        <a class="btn btn-primary" href="/telecharger" data-download><Icon name="download" size={18} /> Télécharger Alfa ERP</a>
+        <a class="btn btn-ghost" href="/">Retour à l'accueil</a>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Base>
+<style>
+  .nf { display: grid; gap: 16px; justify-items: start; max-width: 640px; }
+  .code { font-size: 4rem; font-weight: 600; color: var(--violet-deep); line-height: 1; }
+  h1 { font-size: var(--t-xl); }
+  p { color: var(--ink-2); }
+  .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+</style>

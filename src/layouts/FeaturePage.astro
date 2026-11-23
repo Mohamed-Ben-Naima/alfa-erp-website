@@ -1,0 +1,158 @@
+---
+// Shared layout for the keyword landing pages (facturation, stock, comptabilité).
+// One search intent per page, real screens, a short FAQ, and the same two actions as the home page.
+import Base from './Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Icon from '../components/Icon.astro';
+import { release, whatsappLink, messages, site } from '../config';
+
+export interface Shot { img: string; alt: string; caption: string }
+export interface Block { title: string; text: string }
+interface Props {
+  path: string;
+  title: string; // <title>, ≤ 60 characters
+  description: string; // meta description, ≤ 155 characters
+  h1: string;
+  lead: string;
+  crumb: string;
+  shots: Shot[];
+  blocks: Block[];
+  faqs: { q: string; a: string }[];
+  related: { href: string; label: string }[];
+}
+const { path, title, description, h1, lead, crumb, shots, blocks, faqs, related } = Astro.props;
+const base = Astro.site?.toString().replace(/\/$/, '') ?? site.url;
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Alfa ERP', item: `${base}/` },
+      { '@type': 'ListItem', position: 2, name: crumb, item: `${base}${path}` },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  },
+];
+---
+<Base title={title} description={description} path={path} jsonLd={jsonLd}>
+  <Nav />
+  <main id="contenu">
+    <section class="intro">
+      <div class="wrap intro-grid">
+        <div class="copy">
+          <nav aria-label="Fil d'Ariane" class="crumbs"><a href="/">Alfa ERP</a><span aria-hidden="true">/</span><span>{crumb}</span></nav>
+          <h1>{h1}</h1>
+          <p class="lead">{lead}</p>
+          <div class="ctas">
+            <a class="btn btn-primary btn-lg" href="/telecharger" data-download>
+              <Icon name="download" size={20} />
+              <span>Télécharger gratuitement<span class="btn-meta">{release.requirements}</span></span>
+            </a>
+            <a class="btn btn-wa btn-lg" href={whatsappLink(messages.demo)} target="_blank" rel="noopener">
+              <Icon name="whatsapp" size={20} class="wa-dot" /> Demander une démo
+            </a>
+          </div>
+        </div>
+        <a class="hero-shot" href={`/shots/${shots[0].img}.webp`} data-zoom data-caption={shots[0].caption}>
+          <img src={`/shots/${shots[0].img}.webp`} width="1280" height="800" alt={shots[0].alt} fetchpriority="high" />
+        </a>
+      </div>
+    </section>
+
+    <section class="section blocks">
+      <div class="wrap">
+        <div class="grid">
+          {blocks.map((b) => (
+            <article>
+              <h2>{b.title}</h2>
+              <p>{b.text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {shots.length > 1 && (
+      <section class="section gallery" aria-label="Écrans d'Alfa ERP">
+        <div class="wrap gal-grid">
+          {shots.slice(1).map((s) => (
+            <figure>
+              <a href={`/shots/${s.img}.webp`} data-zoom data-caption={s.caption}>
+                <img src={`/shots/${s.img}-sm.webp`} srcset={`/shots/${s.img}-sm.webp 640w, /shots/${s.img}.webp 1280w`} sizes="(max-width: 760px) 100vw, 560px" width="640" height="400" alt={s.alt} loading="lazy" />
+              </a>
+              <figcaption>{s.caption}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <section class="section faq">
+      <div class="wrap faq-grid">
+        <h2>Questions fréquentes</h2>
+        <div class="list">
+          {faqs.map((f) => (
+            <details><summary>{f.q}</summary><p>{f.a}</p></details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="related">
+      <div class="wrap">
+        <h2>À voir aussi</h2>
+        <ul>
+          {related.map((r) => <li><a href={r.href}>{r.label}</a></li>)}
+        </ul>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>
+
+<style>
+  .intro { padding-block: clamp(28px, 5vw, 64px) clamp(40px, 6vw, 72px); }
+  .intro-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: clamp(28px, 5vw, 56px); align-items: center; }
+  .copy { display: grid; gap: 20px; }
+  .crumbs { display: flex; gap: 8px; font-size: var(--t-sm); color: var(--muted); }
+  .crumbs a { color: var(--violet-deep); text-decoration: none; }
+  .crumbs a:hover { text-decoration: underline; }
+  h1 { font-size: clamp(2rem, 1.3rem + 2.6vw, 3.1rem); line-height: 1.06; letter-spacing: -0.022em; font-weight: 720; }
+  .lead { font-size: var(--t-lg); color: var(--ink-2); max-width: 50ch; }
+  .ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+  .ctas .btn-primary { text-align: left; }
+  .hero-shot img { border-radius: var(--radius-m); border: 1px solid var(--line-strong); box-shadow: var(--shadow-window); }
+
+  .blocks { background: var(--surface); border-block: 1px solid var(--line); }
+  .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 56px; }
+  .grid article { display: grid; gap: 10px; align-content: start; padding-top: 18px; border-top: 2px solid var(--ink); }
+  .grid h2 { font-size: var(--t-lg); }
+  .grid p { color: var(--ink-2); }
+
+  .gal-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
+  figure { margin: 0; display: grid; gap: 10px; }
+  figure img { border-radius: var(--radius-m); border: 1px solid var(--line-strong); box-shadow: var(--shadow-window); }
+  figcaption { font-size: var(--t-sm); color: var(--muted); }
+
+  .faq { padding-top: 0; }
+  .faq-grid { display: grid; grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.6fr); gap: 32px; }
+  .list { border-top: 1px solid var(--line-strong); }
+  details { border-bottom: 1px solid var(--line-strong); }
+  summary { cursor: pointer; padding: 16px 0; font: 600 var(--t-md)/1.4 var(--display); }
+  details p { padding-bottom: 18px; color: var(--ink-2); max-width: 68ch; }
+
+  .related { padding-bottom: clamp(56px, 7vw, 96px); }
+  .related h2 { font-size: var(--t-lg); margin-bottom: 14px; }
+  .related ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+  .related a { display: inline-block; padding: 10px 16px; border: 1px solid var(--line-strong); border-radius: 999px; text-decoration: none; font-size: var(--t-sm); background: var(--surface); }
+  .related a:hover { border-color: var(--violet); color: var(--violet-deep); }
+
+  @media (max-width: 900px) {
+    .intro-grid, .grid, .gal-grid, .faq-grid { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

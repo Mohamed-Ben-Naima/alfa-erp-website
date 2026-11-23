@@ -1,0 +1,156 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Icon from '../components/Icon.astro';
+import { release, whatsappLink, messages, contact } from '../config';
+---
+<Base
+  title="Télécharger Alfa ERP pour Windows"
+  description={`Téléchargez Alfa ERP ${release.version} pour ${release.requirements}. Installation sans droits administrateur, mode démo gratuit avec une société d'exemple.`}
+  path="/telecharger"
+>
+  <Nav />
+  <main id="contenu">
+    <section class="start">
+      <div class="wrap start-inner" data-auto={release.downloadUrl}>
+        <div class="rule" aria-hidden="true"></div>
+        <h1>Votre téléchargement va démarrer</h1>
+        <p class="lead">
+          Alfa ERP {release.version}, pour {release.requirements}{release.sizeLabel ? ` (${release.sizeLabel})` : ''}.
+          S'il ne démarre pas tout seul, utilisez le bouton.
+        </p>
+        <div class="ctas">
+          <a class="btn btn-primary btn-lg" href={release.downloadUrl} download>
+            <Icon name="download" size={20} /> Télécharger Alfa ERP {release.version}
+          </a>
+          <a class="btn btn-wa btn-lg" href={whatsappLink(messages.install)} target="_blank" rel="noopener">
+            <Icon name="whatsapp" size={20} class="wa-dot" /> Besoin d'aide ? WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section guide" id="installer" aria-labelledby="guide-title">
+      <div class="wrap">
+        <h2 id="guide-title">Installer en quatre étapes</h2>
+        <ol class="steps">
+          <li>
+            <div class="txt">
+              <h3>Ouvrez le fichier téléchargé</h3>
+              <p>Double-cliquez sur <strong>AlfaErp-Setup</strong> dans vos téléchargements. L'installation ne demande pas de droits administrateur.</p>
+            </div>
+          </li>
+          <li>
+            <div class="txt">
+              <h3>Si Windows affiche « Windows a protégé votre ordinateur »</h3>
+              <p>
+                C'est normal pour un logiciel récent que Windows ne connaît pas encore. Cliquez sur <strong>Informations complémentaires</strong>, puis sur <strong>Exécuter quand même</strong>.
+              </p>
+            </div>
+            <div class="smartscreen" aria-hidden="true">
+              <p class="ss-title">Windows a protégé votre ordinateur</p>
+              <p class="ss-text">Microsoft Defender SmartScreen a empêché le démarrage d'une application non reconnue.</p>
+              <p class="ss-link"><span class="hl">Informations complémentaires</span></p>
+              <div class="ss-btns"><span class="ss-btn hl">Exécuter quand même</span><span class="ss-btn">Ne pas exécuter</span></div>
+            </div>
+          </li>
+          <li>
+            <div class="txt">
+              <h3>Choisissez « Essayer en mode Démo »</h3>
+              <p>
+                Au premier lancement, Alfa ERP propose d'activer une licence ou d'essayer. Le mode démo
+                crée une société d'exemple complète. Vous activerez plus tard, depuis « À propos »,
+                sans rien perdre.
+              </p>
+            </div>
+            <a href="/shots/activation.webp" data-zoom><img class="shot" src="/shots/activation.webp" alt="Fenêtre « Bienvenue dans Alfa ERP » avec le numéro de série et le bouton Essayer en mode Démo" width="900" height="564" loading="lazy" /></a>
+          </li>
+          <li>
+            <div class="txt">
+              <h3>Connectez-vous, puis changez le mot de passe</h3>
+              <p>
+                Identifiant <code>admin</code>, mot de passe <code>Alfa-Admin-2026!</code>.
+                Alfa ERP vous demande aussitôt d'en choisir un nouveau : ce mot de passe de départ
+                ne permet aucun travail.
+              </p>
+            </div>
+          </li>
+        </ol>
+
+        <div class="verify">
+          <h2>Vérifier le fichier (facultatif)</h2>
+          <p>
+            Pour être sûr que le fichier vient bien de nous et n'a pas été modifié, comparez son
+            empreinte SHA-256 avec celle-ci. Dans PowerShell :
+          </p>
+          <pre><code>Get-FileHash "$env:USERPROFILE\Downloads\AlfaErp-Setup.exe"</code></pre>
+          <p class="hash">Empreinte attendue : <code class="figures">{release.sha256}</code></p>
+        </div>
+
+        <div class="help">
+          <h2>Un souci pendant l'installation ?</h2>
+          <p>Écrivez-nous, on vous guide à distance.{contact.hours && ` ${contact.hours}.`}</p>
+          <a class="btn btn-wa" href={whatsappLink(messages.install)} target="_blank" rel="noopener">
+            <Icon name="whatsapp" size={18} class="wa-dot" /> Écrire sur WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>
+
+<script>
+  const el = document.querySelector<HTMLElement>('[data-auto]');
+  const url = el?.dataset.auto;
+  // Start the download once, a moment after the page shows. Skip if coming back via history.
+  if (url && !sessionStorage.getItem('alfa-dl-started')) {
+    try { sessionStorage.setItem('alfa-dl-started', '1'); } catch {}
+    setTimeout(() => { window.location.href = url; }, 1200);
+  }
+</script>
+
+<style>
+  .start { padding-block: clamp(40px, 6vw, 80px) 24px; }
+  .start-inner { display: grid; gap: 18px; justify-items: start; }
+  h1 { font-size: var(--t-2xl); line-height: 1.05; letter-spacing: -0.022em; }
+  .lead { font-size: var(--t-lg); color: var(--ink-2); max-width: 56ch; }
+  .ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+  .guide h2 { margin-bottom: 28px; }
+  .steps { list-style: none; margin: 0; padding: 0; counter-reset: st; display: grid; gap: 0; }
+  .steps > li {
+    counter-increment: st; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; align-items: start;
+    padding: 28px 0 28px 64px; border-top: 1px solid var(--line); position: relative;
+  }
+  .steps > li::before {
+    content: counter(st); position: absolute; left: 0; top: 28px; width: 40px; height: 40px; border-radius: 50%;
+    display: grid; place-items: center; background: var(--ink); color: #fff; font: 600 var(--t-md)/1 var(--figures);
+  }
+  .txt { display: grid; gap: 8px; padding-top: 6px; }
+  .txt p { color: var(--ink-2); }
+  code { font-family: var(--figures); background: var(--tint); padding: 2px 6px; border-radius: 4px; font-size: .92em; white-space: nowrap; }
+  .shot { border-radius: var(--radius-m); border: 1px solid var(--line-strong); box-shadow: var(--shadow-window); }
+
+  .smartscreen { background: #1a6fb5; color: #fff; padding: 22px; border-radius: 4px; font-family: 'Segoe UI', system-ui, sans-serif; display: grid; gap: 10px; max-width: 460px; }
+  .ss-title { font-size: 1.35rem; font-weight: 600; }
+  .ss-text { font-size: .9rem; opacity: .92; }
+  .ss-link { font-size: .9rem; text-decoration: underline; }
+  .ss-btns { display: flex; gap: 8px; justify-content: flex-end; margin-top: 8px; }
+  .ss-btn { border: 1px solid rgba(255,255,255,.7); padding: 6px 14px; font-size: .85rem; }
+  .hl { outline: 3px solid var(--amber); outline-offset: 3px; border-radius: 2px; }
+
+  .verify { margin-top: 40px; display: grid; gap: 10px; }
+  .verify h2 { margin: 0; font-size: var(--t-lg); }
+  .verify p { color: var(--ink-2); max-width: 70ch; }
+  pre { margin: 0; padding: 14px 16px; background: var(--ink); color: #f3eff8; border-radius: 10px; overflow-x: auto; }
+  pre code { background: none; padding: 0; color: inherit; white-space: pre; }
+  .hash code { white-space: normal; overflow-wrap: anywhere; }
+  .help { margin-top: 40px; padding: 28px; border-radius: var(--radius-l); background: var(--surface); border: 1px solid var(--line); display: grid; gap: 12px; justify-items: start; }
+  .help h2 { margin: 0; font-size: var(--t-lg); }
+  .help p { color: var(--ink-2); }
+
+  @media (max-width: 820px) {
+    .steps > li { grid-template-columns: minmax(0, 1fr); padding-left: 56px; }
+  }
+</style>

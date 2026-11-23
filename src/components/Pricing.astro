@@ -1,0 +1,74 @@
+---
+import Icon from './Icon.astro';
+import { plans, whatsappLink, messages } from '../config';
+const fmt = (n: number) => n.toLocaleString('fr-FR').replace(/ | /g, ' ');
+---
+<section class="section pricing" id="tarifs" aria-labelledby="pricing-title">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="rule" aria-hidden="true"></div>
+      <h2 id="pricing-title">Une licence, pas un abonnement</h2>
+      <p>
+        Vous payez la licence une fois et elle reste valable à vie, mises à jour comprises. Essayez
+        d'abord gratuitement en mode démo, décidez ensuite. Les prestations hors installation,
+        formation et reprise de données sont sur devis.
+      </p>
+    </div>
+
+    <div class="plans">
+      {plans.map((p) => (
+        <article class:list={['plan', { featured: p.featured }]} aria-labelledby={`plan-${p.id}`}>
+          <header>
+            <h3 id={`plan-${p.id}`}>Alfa ERP {p.name}</h3>
+            <p class="tagline">{p.tagline}</p>
+          </header>
+          <p class="price">
+            {p.price !== null ? (
+              <><span class="amount figures">{fmt(p.price)}</span> <span class="cur">DT</span><span class="note">{p.priceNote}</span></>
+            ) : (
+              <><span class="amount quote">Sur devis</span><span class="note">selon le nombre de postes, sur WhatsApp</span></>
+            )}
+          </p>
+          <ul>
+            {p.features.map((f) => <li><Icon name="check" size={18} />{f}</li>)}
+          </ul>
+          <div class="plan-ctas">
+            <a class:list={['btn', p.featured ? 'btn-primary' : 'btn-ghost']} href={whatsappLink(messages[p.message])} target="_blank" rel="noopener">
+              <Icon name="whatsapp" size={18} />
+              {p.id === 'solo' ? 'Acheter Solo' : 'Être rappelé'}
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <p class="trial">
+      <Icon name="download" size={18} />
+      <span>Pas encore décidé ? <a href="/telecharger" data-download>Téléchargez la version d'essai</a>, elle contient tout.</span>
+    </p>
+  </div>
+</section>
+
+<style>
+  .plans { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; max-width: 920px; }
+  .plan {
+    display: grid; gap: 18px; align-content: start; padding: 28px; border-radius: var(--radius-l);
+    background: var(--surface); border: 1px solid var(--line-strong);
+  }
+  .plan.featured { border: 2px solid var(--violet-deep); box-shadow: 0 24px 50px -28px rgba(122, 43, 181, .55); }
+  .tagline { color: var(--muted); font-size: var(--t-sm); margin-top: 6px; }
+  .price { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 6px; padding-block: 6px 14px; border-bottom: 1px solid var(--line); }
+  .amount { font: 700 2.5rem/1 var(--display); letter-spacing: -0.03em; }
+  .amount.figures { font-family: var(--display); font-variant-numeric: tabular-nums; }
+  .amount.quote { font-size: 2rem; }
+  .cur { font: 600 var(--t-lg)/1 var(--display); }
+  .note { flex-basis: 100%; color: var(--muted); font-size: var(--t-xs); }
+  ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; font-size: var(--t-sm); }
+  li { display: flex; gap: 10px; align-items: flex-start; }
+  li :global(svg) { color: var(--ok); flex: none; margin-top: 2px; }
+  .plan-ctas { display: grid; margin-top: 6px; }
+  .trial { display: flex; align-items: center; gap: 10px; margin-top: 24px; color: var(--ink-2); font-size: var(--t-sm); }
+  .trial :global(svg) { color: var(--violet-deep); flex: none; }
+  .trial a { color: var(--violet-deep); font-weight: 600; text-underline-offset: 3px; }
+  @media (max-width: 760px) { .plans { grid-template-columns: minmax(0, 1fr); } }
+</style>

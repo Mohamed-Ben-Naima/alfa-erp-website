@@ -1,0 +1,35 @@
+---
+import FeaturePage from '../layouts/FeaturePage.astro';
+---
+<FeaturePage
+  path="/logiciel-gestion-stock-tunisie"
+  title="Logiciel de gestion de stock Tunisie, multi-dépôts | Alfa ERP"
+  description="Stock par dépôt, coût moyen pondéré, numéros de série et inventaire. Les ventes et les achats mettent le stock à jour tout seuls. Essai gratuit."
+  crumb="Gestion de stock"
+  h1="Logiciel de gestion de stock pour commerces et grossistes"
+  lead="Sachez à tout moment ce que vous avez, dans quel dépôt, et ce que ça vaut. Chaque livraison sort la marchandise, chaque facture fournisseur la fait entrer : le stock se tient à jour sans saisie en plus."
+  shots={[
+    { img: 'etat-stock', alt: "État de stock d'Alfa ERP avec quantités, coût moyen et valeur", caption: 'État de stock : quantités, coût moyen pondéré et valeur, par dépôt.' },
+    { img: 'inventaire', alt: "Saisie d'inventaire dans Alfa ERP", caption: "Saisie d'inventaire : quantité théorique et quantité comptée." },
+    { img: 'article', alt: 'Fiche article dans Alfa ERP', caption: 'La fiche article : prix de vente, taxes, unité et stock.' },
+  ]}
+  blocks={[
+    { title: 'Plusieurs dépôts', text: 'Magasin, entrepôt, dépôt de chantier : chaque article est suivi par dépôt, avec des transferts entre dépôts.' },
+    { title: 'Valorisé au coût moyen pondéré', text: "Chaque entrée recalcule le coût moyen (CMUP). L'état de stock donne la valeur de votre marchandise à la date choisie." },
+    { title: 'Mis à jour par les ventes et les achats', text: "Un bon de livraison ou une facture de vente sort la marchandise ; une facture fournisseur la fait entrer au prix d'achat net." },
+    { title: 'Numéros de série', text: "Pour le matériel suivi à l'unité, chaque entrée et chaque sortie porte son numéro de série." },
+    { title: 'Inventaire', text: 'Comptez, saisissez, et Alfa ERP calcule les écarts avec le stock théorique avant de les enregistrer.' },
+    { title: 'Journal des mouvements', text: "Chaque entrée et chaque sortie est tracée : date, article, quantité, coût et document d'origine." },
+  ]}
+  faqs={[
+    { q: 'Quelle méthode de valorisation utilise Alfa ERP ?', a: 'Le coût moyen unitaire pondéré (CMUP), recalculé à chaque entrée. Les méthodes FIFO et LIFO ne sont pas proposées.' },
+    { q: 'Puis-je vendre un article en rupture ?', a: "Oui : la livraison est enregistrée et le stock passe en négatif, pour que la vente au comptoir ne soit jamais bloquée. L'état de stock le montre." },
+    { q: 'Gérez-vous plusieurs magasins ?', a: 'Oui, avec plusieurs dépôts dans le même dossier, ou une société par dossier si les magasins sont des entreprises distinctes.' },
+  ]}
+  related={[
+    { href: '/logiciel-facturation-tunisie', label: 'Facturation' },
+    { href: '/logiciel-comptabilite-tunisie', label: 'Comptabilité' },
+    { href: '/#essayer', label: 'Essayer une facture en ligne' },
+    { href: '/#tarifs', label: 'Tarifs' },
+  ]}
+/>

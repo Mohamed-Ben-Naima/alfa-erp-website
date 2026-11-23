@@ -1,0 +1,92 @@
+---
+import '@fontsource-variable/bricolage-grotesque/opsz.css';
+import '@fontsource/ibm-plex-sans/latin-400.css';
+import '@fontsource/ibm-plex-sans/latin-400-italic.css';
+import '@fontsource/ibm-plex-sans/latin-500.css';
+import '@fontsource/ibm-plex-sans/latin-600.css';
+import '@fontsource/ibm-plex-mono/latin-400.css';
+import '@fontsource/ibm-plex-mono/latin-500.css';
+import '../styles/global.css';
+import Lightbox from '../components/Lightbox.astro';
+import { site, release, contact, team, plans } from '../config';
+
+interface Props {
+  title: string;
+  description: string;
+  path?: string;
+  noindex?: boolean;
+  jsonLd?: Record<string, unknown>[];
+}
+const { title, description, path = '/', noindex = false, jsonLd = [] } = Astro.props;
+const base = Astro.site?.toString().replace(/\/$/, '') ?? site.url;
+const canonical = `${base}${path}`;
+const ogImage = `${base}/og.jpg`;
+
+const orgLd = {
+  '@context': 'https://schema.org',
+  '@type': ['Organization', 'LocalBusiness'],
+  name: site.publisher,
+  address: { '@type': 'PostalAddress', addressLocality: site.locality, addressRegion: site.region, addressCountry: site.country },
+  areaServed: { '@type': 'Country', name: 'Tunisie' },
+  telephone: contact.phoneHref,
+  url: base,
+  logo: `${base}/brand/icon-512.png`,
+  contactPoint: [{ '@type': 'ContactPoint', telephone: contact.phoneHref, contactType: 'sales', areaServed: 'TN', availableLanguage: ['French'] }],
+  founder: team.map((p) => ({ '@type': 'Person', name: p.name })),
+};
+const softwareLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Alfa ERP',
+  applicationCategory: 'BusinessApplication',
+  applicationSubCategory: 'Gestion commerciale et comptabilité',
+  operatingSystem: 'Windows 10, Windows 11',
+  softwareVersion: release.version,
+  inLanguage: 'fr',
+  description,
+  downloadUrl: release.downloadUrl,
+  offers: [
+    { '@type': 'Offer', name: "Version d'essai (mode démo)", price: '0', priceCurrency: 'TND' },
+    ...plans.filter((p) => p.price !== null).map((p) => ({ '@type': 'Offer', name: `Alfa ERP ${p.name}`, price: String(p.price), priceCurrency: 'TND' })),
+  ],
+  publisher: { '@type': 'Organization', name: site.publisher, address: { '@type': 'PostalAddress', addressLocality: site.locality, addressCountry: site.country } },
+  areaServed: { '@type': 'Country', name: 'Tunisie' },
+};
+---
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="theme-color" content="#7a2bb5" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/brand/icon-180.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_TN" />
+    <meta property="og:site_name" content="Alfa ERP" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="alternate" hreflang="fr-TN" href={canonical} />
+    <link rel="alternate" hreflang="x-default" href={canonical} />
+    <script type="application/ld+json" set:html={JSON.stringify(orgLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(softwareLd)} />
+    {jsonLd.map((d) => <script type="application/ld+json" set:html={JSON.stringify(d)} />)}
+  </head>
+  <body>
+    <a class="skip" href="#contenu">Aller au contenu</a>
+    <slot />
+    <Lightbox />
+  </body>
+</html>

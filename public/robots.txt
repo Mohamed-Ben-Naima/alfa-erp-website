@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://alfa-erp-website-0wgx.onrender.com/sitemap-index.xml

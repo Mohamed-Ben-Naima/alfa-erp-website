@@ -1,0 +1,35 @@
+---
+import FeaturePage from '../layouts/FeaturePage.astro';
+---
+<FeaturePage
+  path="/logiciel-facturation-tunisie"
+  title="Logiciel de facturation Tunisie, devis et factures | Alfa ERP"
+  description="Devis, bons de livraison et factures en dinars à 3 décimales. TVA 19/13/7 %, matricule fiscal, écriture comptable automatique. Essai gratuit."
+  crumb="Logiciel de facturation"
+  h1="Logiciel de facturation pour la Tunisie"
+  lead="Faites vos devis, bons de livraison et factures en quelques clics, en dinars à trois décimales. Alfa ERP calcule la TVA au millime, numérote les factures sans trou et passe l'écriture comptable tout seul."
+  shots={[
+    { img: 'facture', alt: 'Facture client FA2026-0009 ouverte dans Alfa ERP', caption: 'Factures clients : la liste et la facture ouverte à droite.' },
+    { img: 'devis', alt: 'Devis DO2026-0009 dans Alfa ERP', caption: 'Le devis, transformé ensuite en bon de commande, bon de livraison puis facture.' },
+    { img: 'modele-impression', alt: "Écran Modèles d'impression d'Alfa ERP", caption: "Modèles d'impression : votre logo et votre mise en page sur chaque document." },
+  ]}
+  blocks={[
+    { title: 'Du devis à la facture sans ressaisie', text: 'Un devis accepté devient bon de commande, puis bon de livraison, puis facture. Les lignes, les prix et le client suivent à chaque étape.' },
+    { title: 'TVA calculée au millime', text: 'TVA à 19, 13 ou 7 % par ligne, ventilée par taux dans les totaux de la facture, arrondie au millime. Total TTC et net à payer sont calculés pour vous.' },
+    { title: 'Numérotation continue et avoirs liés', text: "Les factures validées sont numérotées dans l'ordre, sans trou. Une erreur se corrige par un avoir lié à la facture d'origine, jamais en effaçant." },
+    { title: "L'écriture comptable passe seule", text: "Chaque facture validée est enregistrée au journal des ventes : client, ventes et TVA collectée. Votre comptable n'a rien à ressaisir." },
+    { title: 'Échéances et règlements', text: 'Paiement comptant ou en plusieurs fois, par espèces, chèque, virement ou traite. La balance âgée montre qui est en retard.' },
+    { title: 'Factures fournisseurs aussi', text: "Les factures d'achat font entrer la marchandise en stock au prix d'achat et passent au journal des achats avec la TVA déductible." },
+  ]}
+  faqs={[
+    { q: 'Puis-je imprimer mes factures avec mon logo ?', a: "Oui. L'écran Modèles d'impression permet de placer votre logo et d'ajuster la mise en page de chaque document, avec un aperçu avant impression." },
+    { q: 'Alfa ERP gère-t-il la facture électronique El Fatoora ?', a: "Pas encore : l'envoi au format TEIF vers El Fatoora est en préparation et sera proposé en mise à jour." },
+    { q: 'Faut-il internet pour facturer ?', a: 'Non. Alfa ERP fonctionne entièrement sur votre PC, même sans connexion.' },
+  ]}
+  related={[
+    { href: '/outils/calcul-retenue-a-la-source', label: 'Calculer une retenue à la source' },
+    { href: '/logiciel-gestion-stock-tunisie', label: 'Gestion de stock' },
+    { href: '/logiciel-comptabilite-tunisie', label: 'Comptabilité' },
+    { href: '/#tarifs', label: 'Tarifs' },
+  ]}
+/>
