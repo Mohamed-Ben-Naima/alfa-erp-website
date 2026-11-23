@@ -69,3 +69,10 @@ Mêmes règles que le logiciel (profil TN) : TVA calculée par ligne, arrondi au
 « half away from zero ». La retenue à la source (1,5 % du TTC dès 1 000 DT) est proposée sur le
 site comme simulation et dans le calculateur : le logiciel la sait calculer (domaine testé) mais
 aucun écran ne l'applique encore. Le droit de timbre n'est pas ajouté aux factures.
+
+## Protections du dépôt GitHub
+
+Dépôt public : n'y mettez jamais de capture du poste de développement (nom du PC, chemins
+`C:\Users\...`), de clé de licence, ni de données réelles. Activés sur le dépôt : analyse des
+secrets avec blocage des pushes qui en contiennent, alertes Dependabot, et une règle qui empêche
+de supprimer `main` ou de réécrire son historique (force-push).
