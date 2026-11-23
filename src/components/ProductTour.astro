@@ -4,8 +4,8 @@ const tabs = [
   {
     id: 'ventes',
     label: 'Ventes',
-    title: 'Du devis à la facture, tapé une seule fois',
-    text: "Un artisan demande un prix : vous faites le devis. Accepté, il devient bon de commande, puis bon de livraison, puis facture, sans rien ressaisir.",
+    title: 'Du devis à la facture, sans ressaisie',
+    text: "Le devis accepté devient commande, livraison puis facture. Rien à retaper.",
     points: [
       'Numérotation des factures continue, sans trou',
       'Échéances et paiement en plusieurs fois',
@@ -17,8 +17,8 @@ const tabs = [
   {
     id: 'stock',
     label: 'Stock',
-    title: 'Savoir ce que vous avez, où, et pour combien',
-    text: "Chaque livraison sort la marchandise, chaque facture fournisseur la fait entrer. L'état de stock donne quantités et valeur au coût moyen pondéré, par dépôt.",
+    title: 'Votre stock, à jour et valorisé',
+    text: "Ventes et achats mettent le stock à jour. Quantités et valeur au coût moyen, par dépôt.",
     points: [
       'Plusieurs dépôts et transferts entre dépôts',
       'Numéros de série pour le matériel',
@@ -30,8 +30,8 @@ const tabs = [
   {
     id: 'encaissements',
     label: 'Encaissements',
-    title: 'Qui vous doit quoi, et depuis quand',
-    text: "La balance âgée range vos clients par retard : moins de 30 jours, 60, 90 et au-delà. Vous voyez d'un coup d'œil qui relancer ce matin.",
+    title: 'Qui vous doit quoi',
+    text: "La balance âgée classe vos clients par retard. Vous savez qui relancer.",
     points: [
       'Espèces, chèques, virements, traites',
       'Remises de chèques en banque',
@@ -44,7 +44,7 @@ const tabs = [
     id: 'comptabilite',
     label: 'Comptabilité',
     title: 'Votre comptable trouve tout prêt',
-    text: "Les ventes, achats et règlements passent seuls au journal, sur le plan comptable tunisien. Balance, grand-livre, livre-journal et déclaration de TVA sortent en PDF.",
+    text: "Ventes, achats et règlements passent seuls au journal. États et TVA en PDF.",
     points: [
       'Plan comptable tunisien de 575 comptes',
       'TVA sur les débits ou sur les encaissements',
@@ -56,8 +56,8 @@ const tabs = [
   {
     id: 'securite',
     label: 'Équipe et sécurité',
-    title: 'Chacun son compte, chacun son métier',
-    text: "Le caissier encaisse, le magasinier gère le stock, le comptable valide. Vous décidez qui voit et qui modifie quoi, module par module.",
+    title: 'Chacun son accès',
+    text: "Vous choisissez qui voit et qui modifie quoi, module par module.",
     points: [
       'Neuf rôles prêts à l\'emploi, modifiables',
       'Sauvegardes signées et vérifiées',
@@ -72,8 +72,8 @@ const tabs = [
   <div class="wrap">
     <div class="section-head">
       <div class="rule" aria-hidden="true"></div>
-      <h2 id="tour-title">Tout votre commerce, dans un seul logiciel</h2>
-      <p>De vrais écrans d'Alfa ERP, avec la société d'exemple que vous retrouverez en mode démo.</p>
+      <h2 id="tour-title">Un seul logiciel pour tout le commerce</h2>
+      <p>De vrais écrans, avec la société d'exemple incluse.</p>
     </div>
 
     <div class="tabs" data-tabs>

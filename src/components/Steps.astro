@@ -4,15 +4,15 @@ import { release } from '../config';
 const steps = [
   {
     title: 'Téléchargez',
-    text: `Un seul fichier pour ${release.requirements}. L'installation se fait sans droits administrateur.`,
+    text: `Un fichier pour ${release.requirements}. Sans droits administrateur.`,
   },
   {
-    title: 'Explorez en mode démo',
-    text: "Au premier lancement, choisissez « Mode démo » : une société d'exemple déjà remplie, avec clients, articles, factures et écritures.",
+    title: 'Essayez en mode démo',
+    text: "Une société d'exemple déjà remplie : clients, articles, factures.",
   },
   {
     title: 'Activez votre licence',
-    text: 'Quand vous êtes prêt, saisissez votre numéro de série. Rien n\'est perdu, vous continuez avec vos propres données.',
+    text: 'Saisissez votre numéro de série. Tout ce que vous avez saisi est conservé.',
   },
 ];
 ---
@@ -20,7 +20,7 @@ const steps = [
   <div class="wrap">
     <div class="section-head">
       <div class="rule" aria-hidden="true"></div>
-      <h2 id="steps-title">Opérationnel aujourd'hui, pas dans trois mois</h2>
+      <h2 id="steps-title">Prêt en trois étapes</h2>
     </div>
     <ol>
       {steps.map((s, i) => (

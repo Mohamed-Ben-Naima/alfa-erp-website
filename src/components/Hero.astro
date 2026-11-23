@@ -17,28 +17,27 @@ const t = computeInvoice(lines);
     <div class="copy">
       <p class="made">
         <Icon name="pin" size={16} />
-        Logiciel tunisien, développé à Mahdia par Alfa Computers &amp; Consulting
+        Développé à Mahdia, Tunisie
       </p>
-      <h1 id="hero-title">Vos factures, votre stock et votre comptabilité. Enfin au même endroit.</h1>
+      <h1 id="hero-title">Factures, stock, comptabilité. Un seul logiciel.</h1>
       <p class="lead">
-        Alfa ERP gère votre commerce du devis jusqu'à la déclaration de TVA, en dinars à trois
-        décimales, sur le plan comptable tunisien. Il s'installe sur votre PC et fonctionne même
-        sans internet.
+        Pour les commerces et PME tunisiennes. Installé sur votre PC, il marche même sans internet.
       </p>
       <div class="ctas">
         <a class="btn btn-primary btn-lg" href="/telecharger" data-download>
-          <Icon name="download" size={20} />
-          <span>Télécharger gratuitement<span class="btn-meta">Windows 10 et 11, version {release.version}</span></span>
+          <Icon name="windows" size={20} />
+          Télécharger gratuitement
         </a>
-        <a class="btn btn-wa btn-lg" href={whatsappLink(messages.demo)} target="_blank" rel="noopener">
-          <Icon name="whatsapp" size={20} class="wa-dot" />
-          Demander une démo
+        <a class="btn btn-ghost btn-lg" href="#demo">
+          <Icon name="play" size={20} />
+          Voir la démo <span class="pill">2 min</span>
         </a>
       </div>
+      <p class="cta-note">Gratuit, sans inscription. Windows 10 et 11, {release.sizeLabel}.</p>
       <ul class="proof">
-        <li><Icon name="check" size={18} />Essai avec une société d'exemple déjà remplie</li>
-        <li><Icon name="check" size={18} />Vos données restent sur votre PC</li>
-        <li><Icon name="check" size={18} />Activez votre licence sans rien ressaisir</li>
+        <li><Icon name="check" size={18} />Société d'exemple incluse</li>
+        <li><Icon name="check" size={18} />Vos données restent chez vous</li>
+        <li><Icon name="check" size={18} />Activation sans rien ressaisir</li>
       </ul>
     </div>
 
@@ -91,7 +90,7 @@ const t = computeInvoice(lines);
 
 <style>
   .hero { padding-block: clamp(28px, 5vw, 72px) clamp(56px, 7vw, 96px); overflow: hidden; }
-  .hero-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(32px, 5vw, 64px); align-items: center; }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr); gap: clamp(32px, 5vw, 64px); align-items: center; }
   .copy { display: grid; gap: 22px; }
   .made { display: inline-flex; align-items: center; gap: 8px; font-size: var(--t-sm); color: var(--muted); }
   .made :global(svg) { color: var(--magenta); }
@@ -100,8 +99,11 @@ const t = computeInvoice(lines);
     font-variation-settings: 'opsz' 96;
   }
   .lead { font-size: var(--t-lg); line-height: 1.55; color: var(--ink-2); max-width: 46ch; }
-  .ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+  .ctas { display: flex; flex-wrap: wrap; gap: 10px; }
+  .ctas .btn-lg { padding-inline: 18px; }
   .ctas .btn-primary { text-align: left; }
+  .cta-note { font-size: var(--t-sm); color: var(--muted); margin-top: -10px; }
+  .pill { display: inline-block; margin-left: 2px; padding: 2px 8px; border-radius: 999px; background: var(--tint); color: var(--violet-deep); font-size: var(--t-xs); font-weight: 600; }
   .proof { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 8px; font-size: var(--t-sm); color: var(--ink-2); }
   .proof li { display: flex; gap: 10px; align-items: center; }
   .proof :global(svg) { color: var(--ok); flex: none; }

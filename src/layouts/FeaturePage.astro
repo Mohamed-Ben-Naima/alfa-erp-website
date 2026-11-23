@@ -50,13 +50,14 @@ const jsonLd = [
           <p class="lead">{lead}</p>
           <div class="ctas">
             <a class="btn btn-primary btn-lg" href="/telecharger" data-download>
-              <Icon name="download" size={20} />
-              <span>Télécharger gratuitement<span class="btn-meta">{release.requirements}</span></span>
+              <Icon name="windows" size={20} />
+              Télécharger gratuitement
             </a>
             <a class="btn btn-wa btn-lg" href={whatsappLink(messages.demo)} target="_blank" rel="noopener">
               <Icon name="whatsapp" size={20} class="wa-dot" /> Demander une démo
             </a>
           </div>
+          <p class="cta-note">Gratuit, sans inscription. {release.requirements}.</p>
         </div>
         <a class="hero-shot" href={`/shots/${shots[0].img}.webp`} data-zoom data-caption={shots[0].caption}>
           <img src={`/shots/${shots[0].img}.webp`} width="1280" height="800" alt={shots[0].alt} fetchpriority="high" />
@@ -126,6 +127,7 @@ const jsonLd = [
   .lead { font-size: var(--t-lg); color: var(--ink-2); max-width: 50ch; }
   .ctas { display: flex; flex-wrap: wrap; gap: 12px; }
   .ctas .btn-primary { text-align: left; }
+  .cta-note { font-size: var(--t-sm); color: var(--muted); margin-top: -8px; }
   .hero-shot img { border-radius: var(--radius-m); border: 1px solid var(--line-strong); box-shadow: var(--shadow-window); }
 
   .blocks { background: var(--surface); border-block: 1px solid var(--line); }

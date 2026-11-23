@@ -6,19 +6,15 @@ import { video } from '../config';
   <div class="wrap video-grid">
     <div class="video-copy">
       <div class="rule" aria-hidden="true"></div>
-      <h2 id="video-title">Une vente complète, du devis à la comptabilité</h2>
-      <p>
-        Filmé dans le vrai logiciel, sur la société d'exemple : un devis pour un chantier devient
-        bon de commande, bon de livraison puis facture. L'écriture comptable, le stock et la
-        balance âgée suivent tout seuls.
-      </p>
+      <h2 id="video-title">Une vente de A à Z, en 2 minutes</h2>
+      <p>Filmé dans le vrai logiciel : devis, livraison, facture, comptabilité et stock.</p>
       <ul class="chapters">
         {video.chapters.map((c) => (
           <li><button type="button" data-seek={c.t}><span class="figures">{c.label}</span>{c.title}</button></li>
         ))}
       </ul>
       <a class="btn btn-primary" href="/telecharger" data-download>
-        <Icon name="download" size={18} /> Essayer sur mon PC
+        <Icon name="windows" size={18} /> Télécharger gratuitement
       </a>
     </div>
     <div class="player window">

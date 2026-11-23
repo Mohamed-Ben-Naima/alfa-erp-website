@@ -7,12 +7,8 @@ const fmt = (n: number) => n.toLocaleString('fr-FR').replace(/ | /g, ' ');
   <div class="wrap">
     <div class="section-head">
       <div class="rule" aria-hidden="true"></div>
-      <h2 id="pricing-title">Une licence, pas un abonnement</h2>
-      <p>
-        Vous payez la licence une fois et elle reste valable à vie, mises à jour comprises. Essayez
-        d'abord gratuitement en mode démo, décidez ensuite. Les prestations hors installation,
-        formation et reprise de données sont sur devis.
-      </p>
+      <h2 id="pricing-title">Payez une fois. Utilisez à vie.</h2>
+      <p>Mises à jour incluses. Essai gratuit avant d'acheter. Autres prestations sur devis.</p>
     </div>
 
     <div class="plans">
@@ -35,7 +31,7 @@ const fmt = (n: number) => n.toLocaleString('fr-FR').replace(/ | /g, ' ');
           <div class="plan-ctas">
             <a class:list={['btn', p.featured ? 'btn-primary' : 'btn-ghost']} href={whatsappLink(messages[p.message])} target="_blank" rel="noopener">
               <Icon name="whatsapp" size={18} />
-              {p.id === 'solo' ? 'Acheter Solo' : 'Être rappelé'}
+              {p.id === 'solo' ? 'Acheter Solo' : 'Demander un devis'}
             </a>
           </div>
         </article>
@@ -44,7 +40,7 @@ const fmt = (n: number) => n.toLocaleString('fr-FR').replace(/ | /g, ' ');
 
     <p class="trial">
       <Icon name="download" size={18} />
-      <span>Pas encore décidé ? <a href="/telecharger" data-download>Téléchargez la version d'essai</a>, elle contient tout.</span>
+      <span>Pas encore sûr ? <a href="/telecharger" data-download>Téléchargez l'essai gratuit</a>.</span>
     </p>
   </div>
 </section>

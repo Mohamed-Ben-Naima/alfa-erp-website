@@ -3,32 +3,32 @@
 // Set like a ledger: what costs you today on one side, what you get back on the other.
 const rows = [
   {
-    pain: 'Je tape la même chose trois fois : le devis, le bon de livraison, puis la facture.',
-    fix: "Le devis devient bon de commande, puis bon de livraison, puis facture. Un clic à chaque étape, rien à retaper.",
+    pain: 'Je tape tout trois fois : devis, livraison, facture.',
+    fix: 'Le devis devient commande, livraison puis facture. Un clic par étape.',
   },
   {
-    pain: "Je ne sais jamais exactement ce qu'il me reste en stock.",
-    fix: "Chaque livraison sort la marchandise du dépôt. Quantités et valeur au coût moyen, par dépôt, à tout moment.",
+    pain: "Je ne sais jamais ce qu'il me reste en stock.",
+    fix: 'Chaque vente et chaque achat mettent le stock à jour, par dépôt.',
   },
   {
     pain: 'Une erreur de TVA, et je la découvre au contrôle.',
-    fix: 'TVA à 19, 13 ou 7 % calculée ligne par ligne, au millime, et ventilée par taux sur chaque facture. La déclaration de TVA se prépare toute seule.',
+    fix: 'TVA calculée au millime sur chaque ligne. La déclaration se prépare seule.',
   },
   {
-    pain: 'Les clients paient en retard et je perds le fil des chèques.',
-    fix: 'Balance âgée, relevé client, échéances et remises de chèques en banque : vous savez qui vous doit quoi, et depuis quand.',
+    pain: 'Les clients paient en retard et je perds le fil.',
+    fix: 'La balance âgée montre qui vous doit quoi, et depuis quand.',
   },
   {
-    pain: 'Mon comptable me réclame les papiers à chaque fin de mois.',
-    fix: "Chaque facture validée passe toute seule au journal. Grand-livre, balance et déclaration de TVA sont prêts quand il arrive.",
+    pain: 'Mon comptable me réclame les papiers chaque mois.',
+    fix: 'Chaque facture validée passe seule au journal. Ses états sont prêts.',
   },
   {
-    pain: "Internet coupe, et le logiciel en ligne s'arrête avec lui.",
-    fix: "Alfa ERP tourne sur votre PC ou votre serveur. Pas d'abonnement cloud, pas de coupure, vos données restent chez vous.",
+    pain: 'Internet coupe, et le logiciel en ligne aussi.',
+    fix: "Alfa ERP tourne sur votre PC. Pas d'abonnement cloud, pas de coupure.",
   },
   {
     pain: 'Si le PC tombe en panne, je perds tout.',
-    fix: "Sauvegarde en un clic, signée puis vérifiée : Alfa ERP relit la copie pour s'assurer qu'elle est complète.",
+    fix: 'Une sauvegarde signée en un clic, que vous pouvez vérifier.',
   },
 ];
 ---
@@ -36,8 +36,8 @@ const rows = [
   <div class="wrap">
     <div class="section-head">
       <div class="rule" aria-hidden="true"></div>
-      <h2 id="pains-title">Ce que vous perdez aujourd'hui, ce qu'Alfa ERP vous rend</h2>
-      <p>Sept situations courantes dans un commerce ou une PME. Voici ce qu'Alfa ERP fait pour chacune.</p>
+      <h2 id="pains-title">Ce qui change dès le premier jour</h2>
+      <p>Sept problèmes courants. Une réponse pour chacun.</p>
     </div>
 
     <div class="ledger" role="table" aria-label="Problèmes courants et solutions Alfa ERP">

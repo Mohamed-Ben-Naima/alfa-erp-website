@@ -78,7 +78,7 @@ export const plans = [
       'Ventes, achats, stock, encaissements',
       'Comptabilité complète et déclaration de TVA',
       'Plusieurs sociétés sur le même PC',
-      'Sauvegardes signées et vérifiées',
+      'Sauvegardes signées et vérifiables',
       'Installation et prise en main à distance',
       'Toutes les mises à jour incluses',
     ],
