@@ -1,5 +1,6 @@
 ---
 import { release } from '../config';
+import Icon from './Icon.astro';
 // A real sequence, so numbering is meaningful here.
 const steps = [
   {
@@ -28,6 +29,7 @@ const steps = [
           <span class="n figures" aria-hidden="true">{i + 1}</span>
           <h3>{s.title}</h3>
           <p>{s.text}</p>
+          {i === 1 && <button type="button" class="info-link" data-demo-info><Icon name="info" size={16} />Comment marche le mode démo ?</button>}
         </li>
       ))}
     </ol>

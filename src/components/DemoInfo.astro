@@ -1,0 +1,101 @@
+---
+// One shared "how the trial works" box. Any button marked data-demo-info opens it.
+// Facts only: what the demo mode does in the app (sprint 33) and the published first sign-in.
+import Icon from './Icon.astro';
+import { whatsappLink, messages } from '../config';
+---
+<dialog class="demo-info" data-demo-dialog aria-labelledby="demo-info-title">
+  <div class="box">
+    <header>
+      <h2 id="demo-info-title">Le mode démo, en bref</h2>
+      <form method="dialog">
+        <button class="close" type="submit" aria-label="Fermer">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </form>
+    </header>
+
+    <ol>
+      <li>
+        <strong>Installez, puis choisissez « Essayer en mode Démo »</strong>
+        <span>Aucun numéro de série n'est demandé pour essayer.</span>
+      </li>
+      <li>
+        <strong>Une société d'exemple est créée pour vous</strong>
+        <span>Clients, fournisseurs, articles, devis, factures et écritures, déjà remplis.</span>
+      </li>
+      <li>
+        <strong>Connectez-vous</strong>
+        <span>Identifiant <code>admin</code>, mot de passe <code>Alfa-Admin-2026!</code>, à changer dès la première connexion.</span>
+      </li>
+      <li>
+        <strong>Testez tout le logiciel</strong>
+        <span>Toutes les fonctions sont ouvertes. Un bandeau « Mode Démo » rappelle que vous essayez.</span>
+      </li>
+      <li>
+        <strong>Prêt ? Activez votre licence</strong>
+        <span>Depuis « À propos », saisissez votre numéro de série. Tout ce que vous avez saisi est conservé.</span>
+      </li>
+    </ol>
+
+    <p class="note">Les sociétés et montants de l'exemple sont inventés.</p>
+
+    <div class="actions">
+      <a class="btn btn-primary" href="/telecharger" data-download>
+        <Icon name="windows" size={18} /> Télécharger gratuitement
+      </a>
+      <a class="btn btn-wa" href={whatsappLink(messages.install)} target="_blank" rel="noopener">
+        <Icon name="whatsapp" size={18} class="wa-dot" /> Une question ?
+      </a>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  const dlg = document.querySelector<HTMLDialogElement>('[data-demo-dialog]');
+  let opener: HTMLElement | null = null;
+  document.addEventListener('click', (e) => {
+    const trigger = (e.target as Element | null)?.closest<HTMLElement>('[data-demo-info]');
+    if (!trigger || !dlg || typeof dlg.showModal !== 'function') return;
+    e.preventDefault();
+    opener = trigger;
+    dlg.showModal();
+    document.documentElement.classList.add('lb-open');
+  });
+  dlg?.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+  dlg?.addEventListener('close', () => {
+    document.documentElement.classList.remove('lb-open');
+    opener?.focus();
+  });
+</script>
+
+<style>
+  .demo-info {
+    width: min(480px, calc(100vw - 32px)); max-width: none; padding: 0; border: 0; border-radius: var(--radius-l);
+    background: var(--surface); color: var(--ink); box-shadow: 0 30px 80px rgba(20, 14, 28, .45);
+  }
+  .demo-info::backdrop { background: rgba(20, 14, 28, .6); backdrop-filter: blur(2px); }
+  .demo-info[open] { animation: pop .16s ease-out; }
+  @keyframes pop { from { opacity: 0; transform: translateY(6px) scale(.98); } to { opacity: 1; transform: none; } }
+  .box { padding: 22px 22px 20px; display: grid; gap: 14px; border-top: 5px solid; border-image: var(--brand-gradient) 1; }
+  header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  h2 { font-size: var(--t-lg); }
+  form { margin: 0; }
+  .close {
+    width: 40px; height: 40px; border-radius: 50%; border: 0; background: var(--paper); color: var(--ink);
+    display: grid; place-items: center; cursor: pointer;
+  }
+  .close:hover { background: var(--tint); }
+  ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: s; }
+  li { display: grid; grid-template-columns: 28px minmax(0, 1fr); column-gap: 12px; row-gap: 2px; counter-increment: s; }
+  li::before {
+    content: counter(s); grid-row: span 2; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center;
+    background: var(--tint); color: var(--violet-deep); font: 600 var(--t-sm)/1 var(--figures);
+  }
+  li strong { font-size: var(--t-sm); }
+  li span { font-size: var(--t-sm); color: var(--ink-2); }
+  code { font-family: var(--figures); background: var(--tint); padding: 1px 5px; border-radius: 4px; font-size: .92em; white-space: nowrap; }
+  .note { font-size: var(--t-xs); color: var(--muted); }
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+  .actions .btn { flex: 1 1 auto; }
+</style>

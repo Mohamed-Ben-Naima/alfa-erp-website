@@ -33,7 +33,10 @@ const t = computeInvoice(lines);
           Voir la démo <span class="pill">2 min</span>
         </a>
       </div>
-      <p class="cta-note">Gratuit, sans inscription. Windows 10 et 11, {release.sizeLabel}.</p>
+      <p class="cta-note">
+        Gratuit, sans inscription. Windows 10 et 11, {release.sizeLabel}.
+        <button type="button" class="info-link" data-demo-info><Icon name="info" size={16} />Comment marche l'essai ?</button>
+      </p>
       <ul class="proof">
         <li><Icon name="check" size={18} />Société d'exemple incluse</li>
         <li><Icon name="check" size={18} />Vos données restent chez vous</li>
